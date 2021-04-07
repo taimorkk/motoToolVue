@@ -1,35 +1,23 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding:0px;">
+  <nav class="navbar  shadow fixed-top  navbar-expand-lg navbar-light bg-light" style="padding:0px;">
   <div class="container-fluid" style="padding-left:0px">
-    <div class="navbar-brand  bg-primary" style="min-width: 250px; max-width: 250px; " href="#">Navbar
-      <button
+    <div class="navbar-brand position-relative " style="min-width: 250px; max-width: 250px; ">
+      <img style="width:250px" src="../assets/motoToolLogo.png" >
+      <button v-if="isLoggedIn"
           @click="toggle"
           type="button"
           id="sidebarCollapse"
-          class="btn  btn-info float-end mx-2"
+          class="btn position-absolute top-50 start-100 translate-middle-y  btn-info float-end mx-2"
         >
           <i class="fas fa-align-left"></i>
           
         </button>
     </div>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-       
-        
-       
-      </ul>
-      <form v-if="isLoggedIn" class="d-flex">
-      
-        <button class="btn btn-outline-danger" @click="logout">Logout</button>
-      </form>
-    </div>
+    
+        <button v-if="isLoggedIn" class="btn btn-danger " @click="logout">Logout</button>
+        <button v-else class="btn btn-outline-success " @click="login" >Login</button>
+     
   </div>
 </nav>
   </div>
@@ -53,7 +41,44 @@ export default {
     logout(){
       this.$store.dispatch('logout');
       this.$router.replace('/login');
+    },
+    login(){
+      
+      this.$router.replace('/login');
     }
   },
 };
 </script>
+<style>
+.btn-danger {
+  display: block;
+  
+  height: 50px;
+  border-radius: 25px;
+  outline: none;
+  border: none;
+  background-image: linear-gradient(to right, #d12709, #e95e4c, #d12709);
+  background-size: 200%;
+  font-size: 1.2rem;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  margin: 1rem 0;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.btn-danger:hover {
+  background-position: right;
+}
+.navbar{
+  
+ background-image: linear-gradient(to right, #cedad6, #f5faf8, #cedad6);
+  background-size: 200%;
+  font-size: 1.2rem;
+  color: #fff;
+  transition: 0.5s;
+}
+.navbar:hover {
+  background-position: right;
+}
+</style>

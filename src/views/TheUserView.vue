@@ -1,21 +1,49 @@
 <template>
-    <h2>
-                WELCOME USER
-    </h2>
-    <button class="btn btn-outline-danger" @click="logout">Logout</button>
-</template>
-<script>
+<navbar></navbar>
+<div class="wrapper">
   
-export default {
-  data() {
-    return {};
+<UserSidebar></UserSidebar>
+  <div class="container  mt-5">
+
+  <router-view  ></router-view>
+  </div>
+</div>
+
+</template>
+
+<script>
+import Navbar from '../components/navbar.vue';
+import UserSidebar from '../components/userSideBar'
+
+
+
+
+export default{
+  components:{
+Navbar,
+UserSidebar
+
   },
-  methods: {
-    
-    logout(){
-      this.$store.dispatch('logout');
-      this.$router.replace('/login');
+
+  inject: ['baseServerUrl'],
+ 
+
+  data(){
+    return{
+  
     }
   },
-};
+  created(){
+   
+  }
+}
 </script>
+
+<style>
+.wrapper{
+  display: flex;
+  text-decoration: none;
+	transition: all 0.3s;
+  margin-top: 20px;
+}
+</style>

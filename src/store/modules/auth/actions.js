@@ -1,30 +1,36 @@
 
 import axios from 'axios'
 
+//var baseServerUrl = sessionStorage.getItem("base_server_url");
 
 let timer;
 
 export default{
+
+
    async login( context, payload){
+     
   return context.dispatch('auth',{
-     ...payload,
-   })
+     ...payload 
+   },
+   )}, 
         
-      }, 
-      
   
   async auth(context ,payload){
 
    
-      const response = await axios.post('http://droidom110-001-site1.ftempurl.com/api/Users/Login', {
+      const response = await axios({
+        method:payload.reqType,
+        url:"http://droidom110-001-site1.ftempurl.com/api/"+payload.url, 
            
-             userName: payload.userName,
-             password: payload.password
+        data:payload.userData
           
-         });
+  });
     
          const responseData = await response;
-
+    
+         
+         console.log(responseData)
         
         const expiresIn = +responseData.data.model.accessTokenExpiry * 1000;
         
@@ -32,9 +38,10 @@ export default{
 
           
 
-            localStorage.setItem('token', responseData.data.model.accessToken);
-            localStorage.setItem('userId', responseData.data.model.userInfo.id);
-            localStorage.setItem('tokenExpiration', expirationDate);
+            sessionStorage.setItem('token', responseData.data.model.accessToken);
+            sessionStorage.setItem('userId', responseData.data.model.userInfo.id);
+            sessionStorage.setItem('roleId', responseData.data.model.userInfo.roleId);
+            sessionStorage.setItem('tokenExpiration', expirationDate);
 
            timer = setTimeout(function(){
               context.dispatch('autoLogout');
@@ -44,7 +51,7 @@ export default{
            token: responseData.data.model.accessToken,
            userId: responseData.data.model.userInfo.id,
            roleId: responseData.data.model.userInfo.roleId,
-           
+           data: responseData.data
          });
    
            
@@ -53,9 +60,10 @@ export default{
    
    autoLogin(context){
 
-    const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId');
-    const tokenExpiration = localStorage.getItem('tokenExpiration');
+    const token = sessionStorage.getItem('token');
+    const userId = sessionStorage.getItem('userId');
+    const tokenExpiration = sessionStorage.getItem('tokenExpiration');
+    const roleID = sessionStorage.getItem('roleId');
 
     const expiresIn = +tokenExpiration -new Date().getTime();
 
@@ -71,7 +79,8 @@ export default{
 
       context.commit('setUser',{
         token:token,
-        userId:userId
+        userId:userId,
+        roleId:roleID
         
       });
     }
@@ -79,9 +88,10 @@ export default{
 
    logout(context){
 
-    localStorage.removeItem('token');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('tokenExpiration');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('userId');
+    sessionStorage.removeItem('roleId');
+    sessionStorage.removeItem('tokenExpiration');
 
 
 clearTimeout(timer);
@@ -89,7 +99,8 @@ clearTimeout(timer);
        context.commit('setUser',{
 
            token:null,
-           userId:null
+           userId:null,
+           roleId:null
         });
    },
 

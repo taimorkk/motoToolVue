@@ -6,6 +6,7 @@ import VueAxios from 'vue-axios'
 import store from './store/index.js';
 
 
+
 import App from './App.vue'
 import Navbar from './components/navbar.vue'
 import Sidebar from './components/sidebar.vue'
@@ -20,11 +21,12 @@ app.component('navbar',Navbar)
 app.component('modal',Modal)
 app.component('loader',Loader)
 
+
 app.component('sidebar',Sidebar)
 app.use(VueAxios, axios)
 
 
-sessionStorage.setItem("base_server_url", "http://droidom110-001-site1.ftempurl.com/api");
+sessionStorage.setItem("base_server_url", "http://droidom110-001-site1.ftempurl.com/api/");
 app.provide('baseServerUrl', sessionStorage.getItem("base_server_url"))
 
 app.use(store);

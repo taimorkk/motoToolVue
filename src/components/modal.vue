@@ -81,7 +81,7 @@ axios.post('http://droidom110-001-site1.ftempurl.com/api/Users', {
             userName:this.userName,
             phone:this.phone,
             hardwareKey:this.hardwareKey,
-            roleId:'1'
+            roleId:'2'
 })
 .then((response) => {
   console.log(response)

@@ -1,33 +1,35 @@
 <template>
     <div class="user-data">
        <div class="card">
-  <h5 class="card-header text-white w-70  bg-primary">Operations History</h5>
+  <h5 class="card-header text-white w-70  bg-primary">Configuration History</h5>
   <div  class="card-body ">
       <button v-if="isAdmin" @click="loadData" class="btn btn-primary">Refresh Data</button>
-<button v-if="isAdmin" class="btn  btn-info m-3 float-end"  data-bs-toggle="modal" data-bs-target="#userModal"><i class="fa fa-plus"></i> Operations</button>
+<button v-if="isAdmin" class="btn  btn-info m-3 float-end"  data-bs-toggle="modal" data-bs-target="#userModal"><i class="fa fa-plus"></i> Configuration</button>
    
   <loader v-if="loader" ></loader>
     <table v-else id="user-table" class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Device Name</th>
-                    <th>Description</th>
-                    <th>status</th>
+                    <th>URl</th>
+                    <th>User Name</th>
+                    <th>Password</th>
+                    <th>Status</th>
                     
                     <th v-if="isAdmin">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="operation in data" :key="operation.id">
-                    <td>{{operation.id}}</td>
-                    <td>{{operation.name}}</td>
-                    <td>{{operation.description}}</td>
-                    <td><input type="checkbox" v-model="operation.isActive"></td>
+                <tr v-for="configuration in data" :key="configuration.id">
+                    <td>{{configuration.id}}</td>
+                    <td>{{configuration.url}}</td>
+                    <td>{{configuration.userName}}</td>
+                    <td>{{configuration.password}}</td>
+                    <td><input type="checkbox" v-model="configuration.isActive"></td>
                     
-                    <td v-if="isAdmin"><button type="button" :id='operation.id' class="m-2 btn btn-small btn-secondary"><i class="fa fa-eye"></i></button>
-                        <button type="button" :id='operation.id' class="btn m-2 btn-small btn-primary"><i class="fa fa-edit"></i></button>
-                        <button type="button" :id='operation.id' class="btn m-2 btn-small btn-danger"><i class="fa fa-trash"></i></button>
+                    <td v-if="isAdmin"><button type="button" :id='configuration.id' class="m-2 btn btn-small btn-secondary"><i class="fa fa-eye"></i></button>
+                        <button type="button" :id='configuration.id' class="btn m-2 btn-small btn-primary"><i class="fa fa-edit"></i></button>
+                        <button type="button" :id='configuration.id' class="btn m-2 btn-small btn-danger"><i class="fa fa-trash"></i></button>
                     </td>
                     
                 </tr>
@@ -77,7 +79,7 @@ async loadData(){
     this.loader=true;
     const url = sessionStorage.getItem('base_server_url');
     const token = sessionStorage.getItem('token');
-    this.axios.get(url+'Admin/Operation',{
+    this.axios.get(url+'Admin/Configuration',{
         headers:{
             Authorization:'bearer '+ token
         }

@@ -1,7 +1,10 @@
 <template>
-  <div class="container">
+  <div class="container position-relative">
+    <button @click="home"  class="btn " style="width:50px"><i class="fas fa-home"></i></button>
 
-
+<Dialog :show="isLoading" title="Authenticating..." fixed>
+<Spinner></Spinner>
+</Dialog>
     <div class="img">
       <img src="img/bg.svg" />
     </div>
@@ -44,14 +47,22 @@
   </div>
 </template>
 <script>
+  import Spinner from '../components/spinner';
+  import Dialog from '../components/baseDialogue';
 export default {
+  components:{
+    Dialog,
+    Spinner
+  },
     data(){
         return{
             userName:'',
-            password:'',
+            password:'helloworld',
             formValid:true,
             isLoading:false,
-            error:null
+            error:null,
+            data:'',
+            requestData:[]
 
         }
     },
@@ -61,13 +72,25 @@ export default {
     },
     },
     methods:{
+      home(){
+        this.$router.replace('/');
+      },
         async submit() {
             
     this.isLoading=true;
-    const actionPayload={
+    const userData={
           userName:this.userName,
             password:this.password
     }
+      
+    const actionPayload= {
+        userData,
+        'reqType':'post',
+        'url':'Users/Login'
+        
+    }
+
+  
     console.log(actionPayload);
 this.formValid=true;
 if(this.userName==='' || this.password.length<6){
@@ -85,6 +108,9 @@ else{
   
     this.$router.replace('/admin');
 }
+this.data=this.$store.getters.data;
+
+console.log(this.data)
 }
 
 catch(err){
@@ -120,7 +146,7 @@ body {
   height: 100vh;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 7rem;
+  
   padding: 0 2rem;
 }
 
