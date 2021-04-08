@@ -17,8 +17,7 @@
       </div>
     </div>
   </nav>
-  <div class="d-flex">
-    <div class="">
+  
       <div class="container text-wrap shadow-lg rounded-pill mt-3">
         <h1 class="main-heading fst-italic">COMING SOON...</h1>
       </div>
@@ -33,7 +32,7 @@
         <input class="form-control m-4 w-25 float-end" v-model="searchValue"  type="search" placeholder="Search" aria-label="Search">
         <div class="card-body overflow-auto" style="height:300px">
             <!-- loop of Cards-->
-            <div class="row">
+            
           
               <div class="card my-3" v-for="model in filterModels" :key="model.modelid">
                 <div class="card-header fw-bolder">
@@ -50,7 +49,7 @@
                     Repair:<span> {{ model.Repair }}</span>
                   </p>
                 </div>
-              </div>
+              
             
           </div>
           <!--------------------------->
@@ -107,8 +106,7 @@
         </div>
       </div>
 
-    </div>
-  </div>
+  
 </template>
 
 <script>
