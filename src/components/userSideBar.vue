@@ -6,7 +6,7 @@
         
        
         <li>
-           <router-link to='/userview/users'>Operations History</router-link> 
+           <router-link to='/userview/operations'>Operations History</router-link> 
         </li>
 
         <li>

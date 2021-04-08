@@ -73,8 +73,8 @@ export default {
   methods: {
    
     submit: function () {
-      
-axios.post('http://droidom110-001-site1.ftempurl.com/api/Users', {
+      var baseUrl=sessionStorage.getItem('base_server_url')
+axios.post(baseUrl+'Users', {
             firstName:this.firstName,
             lastName:this.lastName,
             email:this.email,

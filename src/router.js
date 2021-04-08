@@ -53,7 +53,7 @@ const router = createRouter({
         
         {path:'/userview',  component:TheUserView, beforeEnter: ifAuthenticatedUser,children: [
 
-          {path:'users',  component:TheUser,props: true},
+          {path:'operations',  component:TheOperations,props: true},
           
           {path:'charges',  component:TheCharges},
           
